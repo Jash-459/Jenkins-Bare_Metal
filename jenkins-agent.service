@@ -1,0 +1,31 @@
+//To run jenkins agents as service.
+
+// Automatically start agents whenever server reboots.
+
+// Go to    /etc/systemd/system/      create  jenkins-agent.service file 
+
+
+[Unit]
+Description=Jenkins Agent
+After=network.target
+
+[Service]
+User=jenkins
+WorkingDirectory= # where agent.jar file is present & agents-run
+ExecStart=/usr/bin/java -jar <WorkingDirectory>/agent.jar -url http://<server-url>/ -secret <value> -name <agent's name>
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+//sudo systemctl enable jenkins-agent.service
+
+//sudo systemctl start jenkins-agent.service
+
+
+
+// You cannot run all agents with single service file.
